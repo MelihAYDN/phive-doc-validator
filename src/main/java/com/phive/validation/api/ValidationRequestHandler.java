@@ -108,11 +108,12 @@ final class ValidationRequestHandler
                                                                                                     locale);
 
       final long durationMS = elapsedMs (startTime);
-      new JsonValidationResultListHelper ().sourceToJson (null).ves (executors).applyTo (response, validationResults, locale, durationMS);
+      new JsonValidationResultListHelper ().sourceToJson (null).ves (executors).applyTo (response, validationResults, locale);
 
       markSkippedValidations (response, validationResults);
 
-      response.add (PhiveJsonHelper.JSON_SUCCESS, validationResults.containsNoError ());
+      response.add ("success", validationResults.containsNoError ());
+      response.add ("durationMS", durationMS);
       final String fileName = filePart.getSubmittedFileName ();
       response.add ("fileName", fileName != null && !fileName.isEmpty () ? fileName : "pasted-content.xml");
       response.add ("rule", rule);
