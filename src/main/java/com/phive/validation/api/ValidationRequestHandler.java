@@ -24,6 +24,7 @@ import com.helger.phive.api.executorset.IValidationExecutorSet;
 import com.helger.phive.api.executorset.ValidationExecutorSetRegistry;
 import com.helger.phive.api.result.ValidationResultList;
 import com.helger.phive.api.validity.IValidityDeterminator;
+import com.helger.phive.result.json.CPhiveJson;
 import com.helger.phive.result.json.JsonValidationResultListHelper;
 import com.helger.phive.result.json.PhiveJsonHelper;
 import com.helger.phive.xml.source.IValidationSourceXML;
@@ -112,8 +113,8 @@ final class ValidationRequestHandler
 
       markSkippedValidations (response, validationResults);
 
-      response.add ("success", validationResults.containsNoError ());
-      response.add ("durationMS", durationMS);
+      response.add (CPhiveJson.JSON_SUCCESS, validationResults.containsNoError ());
+      response.add (CPhiveJson.JSON_DURATION_MS, durationMS);
       final String fileName = filePart.getSubmittedFileName ();
       response.add ("fileName", fileName != null && !fileName.isEmpty () ? fileName : "pasted-content.xml");
       response.add ("rule", rule);
